@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="MissingDefaultResource">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="-177dp"
+        tools:layout_editor_absoluteY="43dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="-98dp"
+        tools:layout_editor_absoluteY="48dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myView"
+            android:layout_width="376dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="30dp"
+            android:scrollbars="vertical"
+            >
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <FrameLayout
+            android:id="@+id/fragmentNote"
+            android:layout_width="509dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

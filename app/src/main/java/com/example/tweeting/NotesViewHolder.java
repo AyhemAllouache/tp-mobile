@@ -26,7 +26,8 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
         image = (ImageView)view.findViewById(R.id.logo);
     }
     public void setItem(final Notes notes){
-        note.setText(notes.getNote());
+        String upToNCharacters = notes.getNote().substring(0, Math.min(notes.getNote().length(), 10));
+        note.setText(upToNCharacters + " ...");
         user.setText(notes.getUser());
         date.setText((CharSequence) notes.getTweetDate());
         image.setImageResource(notes.getIdImage());

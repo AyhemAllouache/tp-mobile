@@ -1,13 +1,20 @@
 package com.example.tweeting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -25,20 +32,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    NotesAdapter tweetsadapter;
     Button add;
+   List<Notes> note;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         add = findViewById(R.id.add_tweet);
         recyclerView = findViewById(R.id.myView);
-        List<Notes> notes = new ArrayList<>();
+        note = new ArrayList<Notes>();
         Date currentDate = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = formatter.format(currentDate);
-//        notes.add(new Notes("hello world","Ayhem","2023",R.drawable.ayhem));
-
+        note.add(new Notes("hello world","Ayhem","2023",R.drawable.ayhem));
+        recyclerView.setLayoutManager(new LinearLayoutManager((MainActivity.this)));
+        tweetsadapter=new NotesAdapter(note,MainActivity.this);
+        recyclerView.setAdapter(tweetsadapter);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Get the entered text from the edit text
                         String text = setTweet.getText().toString();
-                        notes.add(new Notes(text,"Ayhem","2023",R.drawable.ayhem));
+                        note.add(new Notes(text,"Ayhem",currentDate.toString(),R.drawable.ayhem));
                         recyclerView.setLayoutManager(new LinearLayoutManager((MainActivity.this)));
-                        recyclerView.setAdapter(new NotesAdapter(notes));
+                        tweetsadapter=new NotesAdapter(note,MainActivity.this);
+                        recyclerView.setAdapter(tweetsadapter);
                         // Show a toast with the entered text
-                        Toast.makeText(MainActivity.this, "Text entered: " + text, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Text entered: " + text, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -87,4 +96,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
